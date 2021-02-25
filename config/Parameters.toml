@@ -4,3 +4,4 @@ characteristic_transcript_length=1000                   # units: nt
 mRNA_half_life_in_min = "need_to_fill_me_in"            # units: hr
 RNAPII_concentration="need_to_fill_me_in"               # units: µM
 transcription_elongation_rate="need_to_fill_me_in"      # units: nt/s
+gene_length_in_nt="need_to_fill_me_in"                  # units: nt
