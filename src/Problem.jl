@@ -26,8 +26,14 @@ function generate_problem_dictionary(path_to_parameters_file::String)::Dict{Stri
 
         # --- PUT STUFF INTO problem_dictionary ---- 
         problem_dictionary["transcription_time_constant"] = toml_dictionary["transcription_time_constant"]
+        problem_dictionary["transcription_saturation_constant"] = toml_dictionary["transcription_saturation_constant"]
+        problem_dictionary["E1"] = toml_dictionary["energy_promoter_state_1"]
+        problem_dictionary["E2"] = toml_dictionary["energy_promoter_state_2"]
+        problem_dictionary["inducer_dissociation_constant"] = toml_dictionary["inducer_dissociation_constant"]
+        problem_dictionary["ideal_gas_constant_R"] = 0.008314 # kJ/mol-K
+        problem_dictionary["temperature_K"] = (273.15+37)
         problem_dictionary["initital_condition_array"] = initital_condition_array
-
+        
         # return -
         return problem_dictionary
     catch error
