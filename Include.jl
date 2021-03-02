@@ -17,7 +17,7 @@ using Logging
 # my codes -
 
 # Problem.jl
-path_to_balances = joinpath(_PATH_TO_SRC,"Problem.jl")
+path_to_problem = joinpath(_PATH_TO_SRC,"Problem.jl")
 include("$(path_to_problem)")
 
 # Balances.jl

@@ -12,7 +12,7 @@ function main(parameters_file_path::String, inducer_array::Array{Float64,1})::Ar
 
     # initialize -
     number_of_inducer_levels = length(inducer_array)
-    mRNA_steady_state_array = Array{Float64,2}(undef,number_of_inducer_levels,3)
+    mRNA_steady_state_array = Array{Float64,2}(undef,number_of_inducer_levels,2)
 
     try 
 
@@ -21,7 +21,7 @@ function main(parameters_file_path::String, inducer_array::Array{Float64,1})::Ar
 
         # For PS2, we are calculating the steady state level of mRNA as a function of inducer -
         initial_condition_array = problem_dictionary["initial_condition_array"]
-        for (index, inducer_level) in enumerate(number_of_inducer_levels)
+        for (index, inducer_level) in enumerate(inducer_array)
             
             # set the inducer concentration -
             initial_condition_array[3] = inducer_level
@@ -32,11 +32,11 @@ function main(parameters_file_path::String, inducer_array::Array{Float64,1})::Ar
         
             # capture the steady state mRNA -
             mRNA_steady_state_array[index,1] = inducer_level
-
+            mRNA_steady_state_array[index,2] = XSS[1]
         end
 
-
-
+        # return -
+        return mRNA_steady_state_array
     catch error
 
         # grab the error message, and post -
@@ -45,7 +45,15 @@ function main(parameters_file_path::String, inducer_array::Array{Float64,1})::Ar
 end
 
 # setup the path to the parameters file -
-path_to_parameters_file = joinpath(_PATH_TO_CONFIG,"Parameters.toml")
+path_to_parameters_file = joinpath(_PATH_TO_CONFIG, "Parameters.toml")
+
+# setup the inducer array: units of nM
+inducer_array = 10 .^(range(-3,stop=3, length=100))
 
 # execute -
-main(path_to_parameters_file)
+mRNA_steady_state_array = main(path_to_parameters_file, inducer_array)
+
+# to plot - uncomment me -
+# plot(mRNA_steady_state_array[:,1],mRNA_steady_state_array[:,2], xscale=:log10, legend=false)
+# xlabel!("Inducer concentration (nM)")
+# ylabel!("Steady state mRNA concentration (nM)")
