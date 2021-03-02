@@ -31,3 +31,7 @@ include("$(path_to_control)")
 # Kinetics.jl
 path_to_kinetics = joinpath(_PATH_TO_SRC,"Kinetics.jl")
 include("$(path_to_kinetics)")
+
+# Solver.jl
+path_to_solver = joinpath(_PATH_TO_SRC,"Solver.jl")
+include("$(path_to_solver)")
