@@ -11,6 +11,7 @@ Pkg.instantiate()
 # load packages -
 using DifferentialEquations
 using Plots
+using LaTeXStrings
 using TOML
 using Logging
 
