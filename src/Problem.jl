@@ -11,27 +11,26 @@ function generate_problem_dictionary(path_to_parameters_file::String)::Dict{Stri
         # setup the initial condition array -
         initial_condition_array = [
             0.0 ;   # 1 mRNA
-            5.0 ;   # gene concentration (5 nM = 0.005 micromolar)
+            5.0 ;   # gene concentration in nM (5 nM = 0.005 micromolar)
             0.0 ;   # 3 I = we'll fill this in the execute script #QN: WHAT DOES THIS MEAN?
         ]
         #trying to fix error message: "mRNA_half_life_in_min undefined"
         mRNA_half_life_in_min = 13.5                           # units: min
-        mRNA_half_life_in_sec = mRNA_half_life_in_min*60       #units: sec
+        #mRNA_half_life_in_sec = mRNA_half_life_in_min*60       #units: sec
+        mRNA_half_life_in_sec = 810                            #units: sec
         transcription_elongation_rate=12                       # units: nt/s
         gene_length_in_nt=690                                   # units: nt
         RNAPII_concentration=60                                 # units: nM
+        #RNAPII_concentration=0.6                                 # units: nM #test value
 
         # TODO: calculate the mRNA_degradation_constant in SECONDS
         mRNA_degradation_constant = log(2)/(mRNA_half_life_in_sec)
 
         # calculate the elongation constant (1/s)
-        elongation_constant = transcription_elongation_rate/gene_length_in_nt    #ask about this! should it be transcript length instead?
+        elongation_constant = transcription_elongation_rate/gene_length_in_nt    
 
         # TODO: VMAX for transcription (nM/s)
         VMAX = elongation_constant*RNAPII_concentration
-
-        # TODO: Stuff that I'm forgetting?
-        # ...
 
         # --- PUT STUFF INTO problem_dictionary ----
         problem_dictionary["transcription_time_constant"] = toml_dictionary["transcription_time_constant"]
