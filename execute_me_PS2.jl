@@ -1,5 +1,5 @@
 # PS2 CHEME 5440/7770 Cornell University
-# 
+#
 # instructions:
 # To execute this script execute the command (from the Julia REPL):
 # julia> include("execute_me_PS2.jl")
@@ -14,7 +14,7 @@ function main(parameters_file_path::String, inducer_array::Array{Float64,1})::Ar
     number_of_inducer_levels = length(inducer_array)
     mRNA_steady_state_array = Array{Float64,2}(undef,number_of_inducer_levels,2)
 
-    try 
+    try
 
         # load the parameter file, and create the problem dictionary -
         problem_dictionary = generate_problem_dictionary(parameters_file_path)
@@ -22,14 +22,14 @@ function main(parameters_file_path::String, inducer_array::Array{Float64,1})::Ar
         # For PS2, we are calculating the steady state level of mRNA as a function of inducer -
         initial_condition_array = problem_dictionary["initial_condition_array"]
         for (index, inducer_level) in enumerate(inducer_array)
-            
+
             # set the inducer concentration -
             initial_condition_array[3] = inducer_level
             problem_dictionary["initial_condition_array"] = initial_condition_array
 
             # estimate the steady state -
-            XSS = estimate_steady_state(problem_dictionary)            
-        
+            XSS = estimate_steady_state(problem_dictionary)
+
             # capture the steady state mRNA -
             mRNA_steady_state_array[index,1] = inducer_level
             mRNA_steady_state_array[index,2] = XSS[1]
@@ -40,7 +40,7 @@ function main(parameters_file_path::String, inducer_array::Array{Float64,1})::Ar
     catch error
 
         # grab the error message, and post -
-        @error "Oooops! Hmmmmm. Something happend" exception=(error, catch_backtrace())
+        @error "Oooops! Hmmmmm. Something happened" exception=(error, catch_backtrace())
     end
 end
 
