@@ -2,7 +2,7 @@ function calculate_transcription_kinetics(t::Float64, x::Array{Float64,1}, probl
 
     # initailzie -
     transcription_rate = 0.0
-    
+
     # alias -
     mRNA = x[1]
     G = x[2]
@@ -12,9 +12,10 @@ function calculate_transcription_kinetics(t::Float64, x::Array{Float64,1}, probl
     KX = problem["transcription_saturation_constant"]
     tau_X = problem["transcription_time_constant"]
     Vmax_X = problem["maximum_transcription_velocity"]
+#should this be Vmax_X=problem["VMAX"] ??
 
     # TODO: compute the transcription rate -
-    # transcription_rate = ...
+    transcription_rate = Vmax_X*(G/(tau_X*KX)+(1+tau_X)*G)
 
     # return -
     return transcription_rate
@@ -26,7 +27,7 @@ function calculate_mRNA_degradation_kinetics(t::Float64, x::Array{Float64,1}, pr
     mRNA = x[1]
     G = x[2]
     σ70 = x[3]
-    
+
     # get the mRNA degradation constant -
     mRNA_degradation_constant = problem["mRNA_degradation_constant"]
 
