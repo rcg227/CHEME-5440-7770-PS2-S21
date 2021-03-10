@@ -14,7 +14,11 @@ function generate_problem_dictionary(path_to_parameters_file::String)::Dict{Stri
             5.0 ;   # gene concentration (nM)
             0.0 ;   # 3 I = we'll fill this in the execute script #QN: WHAT DOES THIS MEAN?
         ]
-
+        #trying to fix error message: "mRNA_half_life_in_min undefined"
+        mRNA_half_life_in_min = 13.5                           # units: min
+        transcription_elongation_rate=12                       # units: nt/s
+        gene_length_in_nt=690                                   # units: nt
+        RNAPII_concentration=0.06                              # units: µM
 
         # TODO: calculate the mRNA_degradation_constant
         mRNA_degradation_constant = log(2)/mRNA_half_life_in_min
@@ -37,12 +41,14 @@ function generate_problem_dictionary(path_to_parameters_file::String)::Dict{Stri
         problem_dictionary["ideal_gas_constant_R"] = 0.008314 # kJ/mol-K
         problem_dictionary["temperature_K"] = (273.15+37)
         problem_dictionary["initial_condition_array"] = initial_condition_array
+#trying to fix an error message
+        problem_dictionary["inducer_cooperativity_parameter"]=toml_dictionary["inducer_cooperativity_parameter"]
 
         # TODO: If we want to use a value later e.g., VMAX or mRNA_degradation_constant you need to put them in the Dictionary
         problem_dictionary["mRNA_degradation_constant"]=mRNA_degradation_constant
         problem_dictionary["elongation_constant"]=elongation_constant
         problem_dictionary["VMAX"]=VMAX
-        
+
         # return -
         return problem_dictionary
     catch error
