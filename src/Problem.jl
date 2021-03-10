@@ -11,7 +11,7 @@ function generate_problem_dictionary(path_to_parameters_file::String)::Dict{Stri
         # setup the initial condition array -
         initial_condition_array = [
             0.0 ;   # 1 mRNA
-            0.005 ;   # gene concentration (5 nM = 0.005 micromolar)
+            5.0 ;   # gene concentration (5 nM = 0.005 micromolar)
             0.0 ;   # 3 I = we'll fill this in the execute script #QN: WHAT DOES THIS MEAN?
         ]
         #trying to fix error message: "mRNA_half_life_in_min undefined"
